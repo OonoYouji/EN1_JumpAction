@@ -66,10 +66,16 @@ public class PullingJump : MonoBehaviour {
 		///- 0番目の衝突情報から、衝突している点の法線を取得
 		Vector3 otherNormal = contacts[0].normal;
 
+		///- 上方向と法線の内積; 二つのベクトルはともに長さが1なのでcosθの結果がdotUN変数に入る
 		float dotUN = Vector3.Dot(Vector3.up, otherNormal);
+		///- 内積値に逆三角関数arccosをかけて角度を算出A; それを度数方へ変換する
+		float dotDeg = Mathf.Acos(dotUN) * Mathf.Rad2Deg;
 
+		///- 二つのベクトルがなす角度が45度より小さければ再びジャンプ可能とする
+		if (dotDeg <= 45) {
+			isCanJump = true;
+		}
 
-		isCanJump = true;
 	}
 
 	/// <summary>
@@ -81,4 +87,9 @@ public class PullingJump : MonoBehaviour {
 		isCanJump = false;
 	}
 
+
+
+
+
+	
 }
