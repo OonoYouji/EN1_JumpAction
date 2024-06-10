@@ -18,8 +18,8 @@ public class MainCamera : MonoBehaviour {
 		///- XZ‚ÍˆÚ“®‚³‚¹‚È‚¢‚Ì‚ÅŒ³‚Ì’l‚ğg—p
 		///- Y‚ÍPlayer‚ğ’Ç]
 		transform.position = new Vector3(
-			transform.position.x,
-			player.transform.position.y,
+			player.transform.position.x,
+			transform.position.y,
 			transform.position.z
 		);
 

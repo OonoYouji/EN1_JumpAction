@@ -15,13 +15,11 @@ public class PullingJump : MonoBehaviour {
 
 	private GameObject childObject;
 
-
 	// Start is called before the first frame update
 	void Start() {
 
 		rb = gameObject.GetComponent<Rigidbody>();
 		childObject = transform.GetChild(0).gameObject;
-
 	}
 
 	// Update is called once per frame
