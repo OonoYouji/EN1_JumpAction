@@ -30,6 +30,7 @@ public class PullingJump : MonoBehaviour {
 
 		///- リリース時速度の計算
 		if (isCanJump && Input.GetMouseButtonUp(0)) {
+			isCanJump = false;
 
 			Vector3 dist = clickPosition - Input.mousePosition;
 
@@ -72,7 +73,7 @@ public class PullingJump : MonoBehaviour {
 		float dotDeg = Mathf.Acos(dotUN) * Mathf.Rad2Deg;
 
 		///- 二つのベクトルがなす角度が45度より小さければ再びジャンプ可能とする
-		if (dotDeg <= 45) {
+		if (dotDeg <= 60.0f) {
 			isCanJump = true;
 		}
 
@@ -84,7 +85,7 @@ public class PullingJump : MonoBehaviour {
 	private void OnCollisionExit(Collision collision) {
 
 
-		isCanJump = false;
+		//isCanJump = false;
 	}
 
 
