@@ -10,11 +10,6 @@ public class MainCamera : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start() {
 
-		///- Player‚©‚ç‚Ì‘Š‘Î‹——£‚ğ‹‚ß‚é
-		//offset = transform.position - player.transform.position;
-
-
-
 	}
 
 	// Update is called once per frame

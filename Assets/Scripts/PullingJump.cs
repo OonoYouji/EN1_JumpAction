@@ -68,7 +68,12 @@ public class PullingJump : MonoBehaviour {
 		Vector3 otherNormal = contacts[0].normal;
 
 		///- 上方向と法線の内積; 二つのベクトルはともに長さが1なのでcosθの結果がdotUN変数に入る
-		float dotUN = Vector3.Dot(Vector3.up, otherNormal);
+		float dotUN = 0.0f;
+		if (Physics.gravity.y > 0.0f) { ///- 重力が上方向
+			dotUN = Vector3.Dot(Vector3.down, otherNormal);
+		} else { ///- 重力が下方向
+			dotUN = Vector3.Dot(Vector3.up, otherNormal);
+		}
 		///- 内積値に逆三角関数arccosをかけて角度を算出A; それを度数方へ変換する
 		float dotDeg = Mathf.Acos(dotUN) * Mathf.Rad2Deg;
 
@@ -92,5 +97,5 @@ public class PullingJump : MonoBehaviour {
 
 
 
-	
+
 }
