@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PullingJump : MonoBehaviour {
@@ -12,11 +13,14 @@ public class PullingJump : MonoBehaviour {
 	private float jumpPower = 20;
 	private bool isCanJump;
 
+	private GameObject childObject;
+
 
 	// Start is called before the first frame update
 	void Start() {
 
 		rb = gameObject.GetComponent<Rigidbody>();
+		childObject = transform.GetChild(0).gameObject;
 
 	}
 
@@ -40,6 +44,8 @@ public class PullingJump : MonoBehaviour {
 			rb.velocity = dist.normalized * jumpPower;
 
 		}
+
+		childObject.SetActive(isCanJump);
 
 	}
 
@@ -77,7 +83,7 @@ public class PullingJump : MonoBehaviour {
 		///- 内積値に逆三角関数arccosをかけて角度を算出A; それを度数方へ変換する
 		float dotDeg = Mathf.Acos(dotUN) * Mathf.Rad2Deg;
 
-		///- 二つのベクトルがなす角度が45度より小さければ再びジャンプ可能とする
+		///- 二つのベクトルがなす角度がn度より小さければ再びジャンプ可能とする
 		if (dotDeg <= 60.0f) {
 			isCanJump = true;
 		}
