@@ -7,32 +7,79 @@ using UnityEngine;
 public class PullingJump : MonoBehaviour {
 
 
-	private Rigidbody rb;
-	private Vector3 clickPosition;
+	private Rigidbody rb; //- 
+	private Vector3 clickPosition; //- クリックした座標
 	[SerializeField]
-	private float jumpPower = 20;
-	private bool isCanJump;
+	private float jumpPower; //- ジャンプの強さ
+	private bool[] isCanJumps = { true, true }; //- ジャンプ可能かどうか
 
+	///- playerの子オブジェクト
 	private GameObject childObject;
 
-	// Start is called before the first frame update
-	void Start() {
+	///// ---------------------------------------------------------------------------
+	///// User Methods
+	///// ---------------------------------------------------------------------------
 
+	bool IsCanJump(bool[] isCanJumps) {
+
+		int max = isCanJumps.Length;
+		for (int i = 0; i < max; ++i) {
+			if (isCanJumps[i]) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	void SetIsCanJump(bool[] isCanJumps, bool isCanJump) {
+		bool inverse = !isCanJump;
+		int max = isCanJumps.Length;
+
+		for (int i = 0; i < max; ++i) {
+			if (isCanJumps[i] == inverse) {
+				isCanJumps[i] = isCanJump;
+				return;
+			}
+		}
+
+	}
+
+
+	///// ---------------------------------------------------------------------------
+	///// Default Methods
+	///// ---------------------------------------------------------------------------
+
+	/// <summary>
+	/// Initialize method
+	/// </summary>
+	void Start() {
 		rb = gameObject.GetComponent<Rigidbody>();
 		childObject = transform.GetChild(0).gameObject;
 	}
 
-	// Update is called once per frame
+	/// <summary>
+	/// Update method
+	/// </summary>
 	void Update() {
 
 		///- トリガー時の座標を取得
 		if (Input.GetMouseButtonDown(0)) {
 			clickPosition = Input.mousePosition;
+
+			///- ジャンプ可能であれば移動を停止させる
+			if (IsCanJump(isCanJumps)) {
+				rb.isKinematic = true;
+			}
 		}
 
 		///- リリース時速度の計算
-		if (isCanJump && Input.GetMouseButtonUp(0)) {
-			isCanJump = false;
+		if (IsCanJump(isCanJumps) && Input.GetMouseButtonUp(0)) {
+
+			///- 移動を再開させる
+			rb.isKinematic = false;
+
+			SetIsCanJump(isCanJumps, false);
 
 			Vector3 dist = clickPosition - Input.mousePosition;
 
@@ -43,15 +90,15 @@ public class PullingJump : MonoBehaviour {
 
 		}
 
-		childObject.SetActive(isCanJump);
+		childObject.SetActive(IsCanJump(isCanJumps));
 
 	}
 
 
 
-	///// ------------------------------------------------
+	///// ---------------------------------------------------------------------------
 	///// Collision Methods
-	///// ------------------------------------------------
+	///// ---------------------------------------------------------------------------
 
 	/// <summary>
 	/// 衝突した瞬間
@@ -83,7 +130,11 @@ public class PullingJump : MonoBehaviour {
 
 		///- 二つのベクトルがなす角度がn度より小さければ再びジャンプ可能とする
 		if (dotDeg <= 60.0f) {
-			isCanJump = true;
+
+			for (int i = 0; i < contacts.Length; i++) {
+				SetIsCanJump(isCanJumps, true);
+			}
+
 		}
 
 	}
@@ -94,7 +145,7 @@ public class PullingJump : MonoBehaviour {
 	private void OnCollisionExit(Collision collision) {
 
 
-		//isCanJump = false;
+		//isCanJumps = false;
 	}
 
 
