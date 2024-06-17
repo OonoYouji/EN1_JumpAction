@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\ItemScript.cs" />
     <Compile Include="Assets\Scripts\ArrowDraw.cs" />
+    <Compile Include="Assets\Scripts\ResetScript.cs" />
     <Compile Include="Assets\Scripts\PullingJump.cs" />
     <Compile Include="Assets\Scripts\GravityInversion.cs" />
     <Compile Include="Assets\Scripts\ItemGetCountScript.cs" />

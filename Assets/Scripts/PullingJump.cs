@@ -19,35 +19,10 @@ public class PullingJump : MonoBehaviour {
 	[SerializeField]
 	ItemGetCountScript itemGetCount;
 
-	///// ---------------------------------------------------------------------------
-	///// User Methods
-	///// ---------------------------------------------------------------------------
-
-	bool IsCanJump(bool[] isCanJumps) {
-
-		int max = isCanJumps.Length;
-		for (int i = 0; i < max; ++i) {
-			if (isCanJumps[i]) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	void SetIsCanJump(bool[] isCanJumps, bool isCanJump) {
-		bool inverse = !isCanJump;
-		int max = isCanJumps.Length;
-
-		for (int i = 0; i < max; ++i) {
-			if (isCanJumps[i] == inverse) {
-				isCanJumps[i] = isCanJump;
-				return;
-			}
-		}
-
-	}
-
+	[SerializeField]
+	ResetScript resetScript;
+	int deathTime;
+	
 
 	///// ---------------------------------------------------------------------------
 	///// Default Methods
@@ -59,6 +34,7 @@ public class PullingJump : MonoBehaviour {
 	void Start() {
 		rb = gameObject.GetComponent<Rigidbody>();
 		childObject = transform.GetChild(0).gameObject;
+		deathTime = 60;
 	}
 
 	/// <summary>
@@ -94,6 +70,12 @@ public class PullingJump : MonoBehaviour {
 		}
 
 		childObject.SetActive(IsCanJump(isCanJumps));
+
+		if (transform.position.y < 0) {
+			if (--deathTime < 0) {
+				resetScript.ResetAll();
+			}
+		}
 
 	}
 
@@ -152,13 +134,33 @@ public class PullingJump : MonoBehaviour {
 	}
 
 
-	private void OnTriggerEnter(Collider other) {
-		//if (other.tag == "Item") {
-		//	bool isGet = other.GetComponent<ItemScript>().GetIsGet();
-		//	if (!isGet) {
-		//		itemGetCount.AddCount();
-		//	}
-		//}
+	///// ---------------------------------------------------------------------------
+	///// User Methods
+	///// ---------------------------------------------------------------------------
+
+	bool IsCanJump(bool[] isCanJumps) {
+
+		int max = isCanJumps.Length;
+		for (int i = 0; i < max; ++i) {
+			if (isCanJumps[i]) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	void SetIsCanJump(bool[] isCanJumps, bool isCanJump) {
+		bool inverse = !isCanJump;
+		int max = isCanJumps.Length;
+
+		for (int i = 0; i < max; ++i) {
+			if (isCanJumps[i] == inverse) {
+				isCanJumps[i] = isCanJump;
+				return;
+			}
+		}
+
 	}
 
 

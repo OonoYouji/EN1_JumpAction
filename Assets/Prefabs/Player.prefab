@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpPower: 15
   itemGetCount: {fileID: 4374706631552904948, guid: a931650e593efb54eb453c30b2ea108f, type: 3}
+  resetScript: {fileID: 0}
 --- !u!1 &5486836136058111294
 GameObject:
   m_ObjectHideFlags: 0
