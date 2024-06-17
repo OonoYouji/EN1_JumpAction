@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ItemScript : MonoBehaviour {
 
-	private Animator animator;
-	private AudioSource audioSource;
+	Animator animator;
+	AudioSource audioSource;
+	bool isGet;
 
 	// Start is called before the first frame update
 	void Start() {
 		animator = GetComponent<Animator>();
 		audioSource = GetComponent<AudioSource>();
+		isGet = false;
 	}
 
 	// Update is called once per frame
@@ -27,9 +29,12 @@ public class ItemScript : MonoBehaviour {
 	/// ê⁄êGéû
 	/// </summary>
 	private void OnTriggerEnter(Collider other) {
-		//DestroySelf();
 		animator.SetTrigger("Get");
 		audioSource.Play();
+		if (!isGet) {
+			other.GetComponent<PullingJump>().AddGetCount();
+			isGet = true;
+		}
 	}
 
 	/// <summary>
@@ -59,5 +64,7 @@ public class ItemScript : MonoBehaviour {
 	private void DestroySelf() {
 		Destroy(gameObject);
 	}
+
+	public bool GetIsGet() { return isGet; }
 
 }

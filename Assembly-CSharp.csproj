@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\ArrowDraw.cs" />
     <Compile Include="Assets\Scripts\PullingJump.cs" />
     <Compile Include="Assets\Scripts\GravityInversion.cs" />
+    <Compile Include="Assets\Scripts\ItemGetCountScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

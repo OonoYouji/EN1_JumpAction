@@ -16,6 +16,9 @@ public class PullingJump : MonoBehaviour {
 	///- playerの子オブジェクト
 	private GameObject childObject;
 
+	[SerializeField]
+	ItemGetCountScript itemGetCount;
+
 	///// ---------------------------------------------------------------------------
 	///// User Methods
 	///// ---------------------------------------------------------------------------
@@ -104,7 +107,7 @@ public class PullingJump : MonoBehaviour {
 	/// 衝突した瞬間
 	/// </summary>
 	private void OnCollisionEnter(Collision collision) {
-		//Debug.Log("衝突した");
+
 	}
 
 	/// <summary>
@@ -149,8 +152,19 @@ public class PullingJump : MonoBehaviour {
 	}
 
 
+	private void OnTriggerEnter(Collider other) {
+		//if (other.tag == "Item") {
+		//	bool isGet = other.GetComponent<ItemScript>().GetIsGet();
+		//	if (!isGet) {
+		//		itemGetCount.AddCount();
+		//	}
+		//}
+	}
 
 
+	public void AddGetCount() {
+		itemGetCount.AddCount();
+	}
 
 
 }
